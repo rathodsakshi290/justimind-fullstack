@@ -99,7 +99,7 @@ app.add_middleware(
         "http://127.0.0.1:8000",
         "https://rathodsakshi290.github.io",
     ],
-    allow_origin_regex=r"^https?://(localhost|127\.0\.0\.1|.*\.github\.io|.*\.onrender\.com)(:\d+)?$",
+    allow_origin_regex=r"^https?://(localhost|127\.0\.0\.1|.*\.github\.io|.*\.onrender\.com|.*\.vercel\.app)(:\d+)?$",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

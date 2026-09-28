@@ -23,6 +23,12 @@ services:
     rootDir: frontend
     buildCommand: npm install && npm run build
     staticPublishPath: dist
+    envVars:
+      - key: VITE_API_BASE
+        fromService:
+          type: web
+          name: justimind-backend
+          property: host
     routes:
       - type: rewrite
         source: /*
