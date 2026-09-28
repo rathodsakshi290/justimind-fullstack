@@ -1,7 +1,9 @@
-const rawBase = import.meta.env.VITE_API_BASE || "http://localhost:8000";
-const API_BASE = (rawBase.startsWith("http://") || rawBase.startsWith("https://"))
-  ? rawBase
-  : `https://${rawBase}`;
+const rawBase = import.meta.env.VITE_API_BASE ?? (import.meta.env.DEV ? "http://localhost:8000" : "");
+const API_BASE = !rawBase
+  ? ""
+  : (rawBase.startsWith("http://") || rawBase.startsWith("https://"))
+    ? rawBase
+    : `https://${rawBase}`;
 
 async function request(path, { method = "GET", token, body } = {}) {
   const headers = { "Content-Type": "application/json" };

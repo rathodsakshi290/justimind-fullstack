@@ -5,6 +5,10 @@
   "framework": "vite",
   "rewrites": [
     {
+      "source": "/(auth|cases|search|chat|admin|analytics|documents|verification|security|health)(/.*)?",
+      "destination": "/api/index.py"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
