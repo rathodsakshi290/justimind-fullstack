@@ -40,8 +40,10 @@ jobs:
         run: npm run build
         working-directory: frontend
 
-      - name: Setup GitHub Pages SPA routing (404.html)
-        run: cp frontend/dist/index.html frontend/dist/404.html
+      - name: Setup GitHub Pages SPA routing and nojekyll
+        run: |
+          cp frontend/dist/index.html frontend/dist/404.html
+          touch frontend/dist/.nojekyll
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
