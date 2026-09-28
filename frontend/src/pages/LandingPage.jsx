@@ -51,29 +51,11 @@ const FEATURES = [
   },
 ];
 
-const STATS = [
-  { value: "2.4M+", label: "Court opinions indexed" },
-  { value: "94.2%", label: "Clause extraction accuracy" },
-  { value: "85%", label: "Research time saved per brief" },
-  { value: "< 3.2s", label: "Gemini AI response latency" },
-];
-
-const TESTIMONIALS = [
-  {
-    quote: "I stopped treating AI legal predictions as a novelty after the third case JustiMind called correctly — including the settlement figure within 8%.",
-    name: "Elena Rostova",
-    role: "Senior Partner, Rostova & Sterling LLP",
-  },
-  {
-    quote: "The Case Summarizer parses a 140-page appellate petition with the precision of a top-tier associate, extracting exact citations and evidentiary gaps.",
-    name: "Rajesh Verma",
-    role: "Senior Defense Advocate, High Court",
-  },
-  {
-    quote: "We run every master services agreement through the Document Analyzer. It caught three catastrophic indemnity liabilities last quarter alone.",
-    name: "Marcus Brody",
-    role: "General Counsel, Vanguard Global",
-  },
+const HIGHLIGHTS = [
+  { value: "AI Reasoning", label: "Powered by Google Gemini & CourtListener" },
+  { value: "Local & Private", label: "Self-hosted FastAPI & SQLite database" },
+  { value: "Formal Logic", label: "Mathematical verification via Z3 SMT" },
+  { value: "Multi-Jurisdiction", label: "US, UK, Indian, and EU legal frameworks" },
 ];
 
 export default function LandingPage() {
@@ -81,8 +63,6 @@ export default function LandingPage() {
   const { user } = useAuth();
   const { t, isRTL } = useLanguage();
   const [wordIndex, setWordIndex] = useState(0);
-  const [hoursPerWeek, setHoursPerWeek] = useState(15);
-  const [hourlyRate, setHourlyRate] = useState(350);
 
   const rotatingWords = [
     t("landing.rotatingVerdict"),
@@ -97,8 +77,6 @@ export default function LandingPage() {
     }, 2800);
     return () => clearInterval(interval);
   }, [rotatingWords.length]);
-
-  const annualSavings = Math.round(hoursPerWeek * 0.7 * hourlyRate * 50);
 
   return (
     <div data-theme={theme} dir={isRTL ? "rtl" : "ltr"} style={{ minHeight: "100vh", background: "var(--bg)", color: "var(--text)", position: "relative", overflow: "hidden" }}>
@@ -167,7 +145,7 @@ export default function LandingPage() {
             className="jm-badge jm-badge-gold jm-animate-fade-in-up"
             style={{ marginBottom: 22, padding: "6px 16px", fontSize: 12.5 }}
           >
-            <Sparkles size={13} style={{ color: "var(--gold)" }} /> Powered by Google Gemini AI & CourtListener
+            <Sparkles size={13} style={{ color: "var(--gold)" }} /> Enterprise Legal Intelligence &amp; Judicial Reasoning
           </div>
 
           <h1
@@ -274,12 +252,12 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Metrics Section */}
+      {/* Highlights Section */}
       <section style={{ borderTop: "1px solid var(--card-border)", borderBottom: "1px solid var(--card-border)", background: "var(--surface)", padding: "44px 24px" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 24, textAlign: "center" }}>
-          {STATS.map((s, i) => (
+          {HIGHLIGHTS.map((s, i) => (
             <div key={i} className="jm-animate-pop-in">
-              <div className="jm-display" style={{ fontSize: 34, fontWeight: 700, marginBottom: 4, color: "var(--gold-light)" }}>
+              <div className="jm-display" style={{ fontSize: 30, fontWeight: 700, marginBottom: 4, color: "var(--gold-light)" }}>
                 {s.value}
               </div>
               <div style={{ fontSize: 13.5, color: "var(--text-muted)", fontWeight: 600 }}>{s.label}</div>
@@ -316,105 +294,14 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ROI / Hours Saved Interactive Calculator */}
-      <section style={{ padding: "65px 24px", background: "var(--surface)", borderTop: "1px solid var(--card-border)" }}>
-        <div style={{ maxWidth: 880, margin: "0 auto" }}>
-          <div className="jm-card" style={{ padding: 34, border: "1px solid var(--card-border-glow)" }}>
-            <div style={{ textAlign: "center", marginBottom: 28 }}>
-              <span className="jm-card-label" style={{ justifyContent: "center", color: "var(--gold)" }}>Firm ROI Calculator</span>
-              <h3 className="jm-display" style={{ fontSize: 25, fontWeight: 600, margin: "6px 0" }}>
-                Calculate your team's billable hours recovered
-              </h3>
-            </div>
-
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32, alignItems: "center" }}>
-              <div>
-                <div style={{ marginBottom: 22 }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13.5, marginBottom: 8 }}>
-                    <span>Research hours spent per week:</span>
-                    <strong className="jm-mono" style={{ color: "var(--gold-light)" }}>{hoursPerWeek} hrs</strong>
-                  </div>
-                  <input
-                    type="range"
-                    min={5}
-                    max={60}
-                    value={hoursPerWeek}
-                    onChange={(e) => setHoursPerWeek(Number(e.target.value))}
-                    style={{ width: "100%", accentColor: "var(--gold)" }}
-                  />
-                </div>
-
-                <div>
-                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13.5, marginBottom: 8 }}>
-                    <span>Hourly billing rate ($):</span>
-                    <strong className="jm-mono" style={{ color: "var(--gold-light)" }}>${hourlyRate}/hr</strong>
-                  </div>
-                  <input
-                    type="range"
-                    min={150}
-                    max={1200}
-                    step={25}
-                    value={hourlyRate}
-                    onChange={(e) => setHourlyRate(Number(e.target.value))}
-                    style={{ width: "100%", accentColor: "var(--gold)" }}
-                  />
-                </div>
-              </div>
-
-              <div
-                style={{
-                  background: "var(--surface)",
-                  border: "1px solid var(--card-border)",
-                  borderRadius: 12,
-                  padding: 26,
-                  textAlign: "center",
-                }}
-              >
-                <div style={{ fontSize: 11, color: "var(--text-muted)", textTransform: "uppercase" }} className="jm-mono">
-                  Estimated Annual Value Created
-                </div>
-                <div className="jm-display" style={{ fontSize: 38, fontWeight: 700, margin: "10px 0", color: "var(--gold-light)" }}>
-                  ${annualSavings.toLocaleString()}
-                </div>
-                <div style={{ fontSize: 13, color: "var(--text-secondary)" }}>
-                  Recovers ~{Math.round(hoursPerWeek * 0.7 * 50)} hours of focus every year.
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section style={{ padding: "85px 24px", maxWidth: 1100, margin: "0 auto" }}>
-        <div style={{ textAlign: "center", marginBottom: 44 }}>
-          <h2 className="jm-display" style={{ fontSize: 29, fontWeight: 600 }}>Trusted by Leading Litigators</h2>
-        </div>
-
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 22 }}>
-          {TESTIMONIALS.map((t, i) => (
-            <div key={i} className="jm-card" style={{ padding: 26, display: "flex", flexDirection: "column" }}>
-              <Quote size={20} style={{ color: "var(--gold)", marginBottom: 14 }} />
-              <p style={{ fontSize: 13.5, color: "var(--text-secondary)", lineHeight: 1.65, flex: 1, margin: "0 0 18px" }}>
-                "{t.quote}"
-              </p>
-              <div>
-                <div style={{ fontWeight: 700, fontSize: 14.5 }}>{t.name}</div>
-                <div style={{ fontSize: 12, color: "var(--text-muted)" }}>{t.role}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* Footer */}
       <footer style={{ borderTop: "1px solid var(--card-border)", background: "var(--surface)", padding: "50px 24px 40px", textAlign: "center" }}>
         <div style={{ maxWidth: 640, margin: "0 auto 30px" }}>
           <h3 className="jm-display" style={{ fontSize: 25, fontWeight: 600, margin: "0 0 10px" }}>
-            Ready to elevate your legal practice?
+            Ready to explore legal intelligence?
           </h3>
           <p style={{ color: "var(--text-muted)", fontSize: 14, marginBottom: 22 }}>
-            Sign up in 30 seconds and start analyzing cases with Gemini AI immediately.
+            Start analyzing cases with Gemini AI immediately.
           </p>
           <Link to="/login" className="jm-btn jm-btn--primary" style={{ padding: "12px 28px", fontSize: 14.5, textDecoration: "none" }}>
             Get Started Now <ArrowRight size={15} />
@@ -422,7 +309,7 @@ export default function LandingPage() {
         </div>
 
         <div style={{ fontSize: 11.5, color: "var(--text-dim)" }} className="jm-mono">
-          © {new Date().getFullYear()} JustiMind Inc. All rights reserved. Enterprise Legal Intelligence.
+          © {new Date().getFullYear()} JustiMind. Legal Intelligence Platform.
         </div>
       </footer>
     </div>

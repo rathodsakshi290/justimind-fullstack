@@ -15,11 +15,11 @@ export default function VerificationPage() {
   const navigate = useNavigate();
 
   const [benchmarks, setBenchmarks] = useState([]);
-  const [selectedBenchmarkId, setSelectedBenchmarkId] = useState("contract_liability_contradiction");
+  const [selectedBenchmarkId, setSelectedBenchmarkId] = useState("termination_vs_cure_period");
   const [cases, setCases] = useState([]);
   const [documents, setDocuments] = useState([]);
 
-  const [title, setTitle] = useState("TechVanguard MSA — Indemnity vs. Liability Cap Contradiction");
+  const [title, setTitle] = useState("SaaS Agreement — Notice vs. Cure Period Deadlock");
   const [text, setText] = useState("");
   const [domain, setDomain] = useState("contract_consistency");
   const [params, setParams] = useState({});
@@ -253,15 +253,13 @@ export default function VerificationPage() {
           <AlertTriangle size={16} style={{ flexShrink: 0 }} />
           <span>{error}</span>
         </div>
-      )}
-
-      {/* Target Selector & Configuration */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 20 }}>
+      )}      {/* Target Selector & Configuration */}
+      <div style={{ marginBottom: 20 }}>
         {/* Benchmark / Source Selector */}
         <div className="jm-card">
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
             <div style={{ fontSize: 13, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--text-muted)" }}>
-              1. Select Verification Target
+              Select Verification Target
             </div>
             <span style={{ fontSize: 11, color: "var(--gold)" }} className="jm-mono">
               Presets &amp; Saved Data
@@ -272,13 +270,13 @@ export default function VerificationPage() {
             <label style={{ fontSize: 12, fontWeight: 600, color: "var(--text-secondary)", marginBottom: 6, display: "block" }}>
               Standard Verification Benchmarks
             </label>
-            <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 10 }}>
               {benchmarks.map((bm) => (
                 <div
                   key={bm.id}
                   onClick={() => handleBenchmarkSelect(bm.id)}
                   style={{
-                    padding: "10px 12px",
+                    padding: "12px 14px",
                     borderRadius: 6,
                     cursor: "pointer",
                     background: selectedBenchmarkId === bm.id ? "var(--gold-glow)" : "var(--surface)",
@@ -286,8 +284,8 @@ export default function VerificationPage() {
                     transition: "all 0.15s ease",
                   }}
                 >
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 2 }}>
-                    <span style={{ fontSize: 13, fontWeight: 700, color: selectedBenchmarkId === bm.id ? "var(--gold)" : "var(--text)" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
+                    <span style={{ fontSize: 13.5, fontWeight: 700, color: selectedBenchmarkId === bm.id ? "var(--gold)" : "var(--text)" }}>
                       {bm.title}
                     </span>
                     <span
@@ -303,7 +301,7 @@ export default function VerificationPage() {
                       {bm.domain}
                     </span>
                   </div>
-                  <div style={{ fontSize: 11.5, color: "var(--text-dim)", lineHeight: 1.4 }}>
+                  <div style={{ fontSize: 12, color: "var(--text-dim)", lineHeight: 1.45 }}>
                     {bm.description}
                   </div>
                 </div>
@@ -312,7 +310,7 @@ export default function VerificationPage() {
           </div>
 
           {/* User Saved Items Quick-Select */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, paddingTop: 10, borderTop: "1px solid var(--card-border)" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, paddingTop: 12, borderTop: "1px solid var(--card-border)" }}>
             <div>
               <label style={{ fontSize: 11, fontWeight: 600, color: "var(--text-muted)", marginBottom: 4, display: "block" }}>
                 Import Saved Case ({cases.length})
@@ -360,195 +358,6 @@ export default function VerificationPage() {
                 ))}
               </select>
             </div>
-          </div>
-        </div>
-
-        {/* Target Clause Text & Parameter Controls */}
-        <div className="jm-card">
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
-            <div style={{ fontSize: 13, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--text-muted)" }}>
-              2. Contract Text &amp; Parameter Matrix
-            </div>
-            <span style={{ fontSize: 11, color: "var(--blue)" }} className="jm-mono">
-              Live SMT Variables
-            </span>
-          </div>
-
-          <div style={{ marginBottom: 12 }}>
-            <label style={{ fontSize: 12, fontWeight: 600, color: "var(--text-secondary)", marginBottom: 4, display: "block" }}>
-              Target Legal Text
-            </label>
-            <textarea
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-              rows={5}
-              style={{
-                width: "100%",
-                padding: "8px 10px",
-                borderRadius: 6,
-                background: "var(--input-bg)",
-                border: "1px solid var(--card-border)",
-                color: "var(--text)",
-                fontSize: 12.5,
-                lineHeight: 1.5,
-                fontFamily: "inherit",
-                resize: "vertical",
-              }}
-            />
-          </div>
-
-          {/* Interactive Parameters for What-If Simulation */}
-          <div style={{ background: "rgba(255, 255, 255, 0.02)", padding: 10, borderRadius: 6, border: "1px solid var(--card-border)" }}>
-            <div style={{ fontSize: 11.5, fontWeight: 700, color: "var(--text-secondary)", marginBottom: 8, display: "flex", justifyContent: "space-between" }}>
-              <span>ACTIVE MODEL PARAMETERS</span>
-              <span className="jm-mono" style={{ color: "var(--gold)", fontSize: 10 }}>Auto-Sync with Z3</span>
-            </div>
-
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
-              {/* Parameter: Termination Notice Days */}
-              {params.termination_notice_days !== undefined && (
-                <div>
-                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, marginBottom: 2 }}>
-                    <span>Notice Window</span>
-                    <strong className="jm-mono" style={{ color: "var(--gold)" }}>{params.termination_notice_days} days</strong>
-                  </div>
-                  <input
-                    type="range"
-                    min="1"
-                    max="60"
-                    value={params.termination_notice_days}
-                    onChange={(e) => setParams({ ...params, termination_notice_days: parseInt(e.target.value) })}
-                    style={{ width: "100%" }}
-                  />
-                  <div style={{ display: "flex", justifyContent: "space-between", marginTop: 4 }}>
-                    <button
-                      onClick={() => handleSolveWhatIf("termination_notice_days")}
-                      disabled={whatIfSolving}
-                      style={{
-                        fontSize: 10,
-                        background: "none",
-                        border: "none",
-                        color: "var(--blue)",
-                        cursor: "pointer",
-                        textDecoration: "underline",
-                        padding: 0,
-                      }}
-                    >
-                      {whatIfSolving ? "Solving..." : "⚡ Z3 Optimize Notice"}
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {/* Parameter: Cure Period Days */}
-              {params.mandatory_cure_days !== undefined && (
-                <div>
-                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, marginBottom: 2 }}>
-                    <span>Cure Window</span>
-                    <strong className="jm-mono" style={{ color: "var(--gold)" }}>{params.mandatory_cure_days} days</strong>
-                  </div>
-                  <input
-                    type="range"
-                    min="0"
-                    max="60"
-                    value={params.mandatory_cure_days}
-                    onChange={(e) => setParams({ ...params, mandatory_cure_days: parseInt(e.target.value) })}
-                    style={{ width: "100%" }}
-                  />
-                </div>
-              )}
-
-              {/* Parameter: Liability Cap Amount */}
-              {params.cap_amount !== undefined && (
-                <div>
-                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, marginBottom: 2 }}>
-                    <span>Liability Cap</span>
-                    <strong className="jm-mono" style={{ color: "var(--blue)" }}>${params.cap_amount.toLocaleString()}</strong>
-                  </div>
-                  <input
-                    type="range"
-                    min="500"
-                    max="100000"
-                    step="500"
-                    value={params.cap_amount}
-                    onChange={(e) => setParams({ ...params, cap_amount: parseInt(e.target.value) })}
-                    style={{ width: "100%" }}
-                  />
-                </div>
-              )}
-
-              {/* Parameter: Limitation Elapsed Days */}
-              {params.cause_of_action_days_ago !== undefined && (
-                <div>
-                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, marginBottom: 2 }}>
-                    <span>Elapsed Days</span>
-                    <strong className="jm-mono" style={{ color: params.cause_of_action_days_ago > 1095 ? "var(--bad)" : "var(--good)" }}>
-                      {params.cause_of_action_days_ago} days
-                    </strong>
-                  </div>
-                  <input
-                    type="range"
-                    min="100"
-                    max="2000"
-                    step="50"
-                    value={params.cause_of_action_days_ago}
-                    onChange={(e) => setParams({ ...params, cause_of_action_days_ago: parseInt(e.target.value) })}
-                    style={{ width: "100%" }}
-                  />
-                  <div style={{ display: "flex", justifyContent: "space-between", marginTop: 4 }}>
-                    <button
-                      onClick={() => handleSolveWhatIf("statutory_limitation_days")}
-                      disabled={whatIfSolving}
-                      style={{
-                        fontSize: 10,
-                        background: "none",
-                        border: "none",
-                        color: "var(--blue)",
-                        cursor: "pointer",
-                        textDecoration: "underline",
-                        padding: 0,
-                      }}
-                    >
-                      {whatIfSolving ? "Solving..." : "⚡ Z3 Solve Required Window"}
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {/* Parameter: Public Location Recovery */}
-              {params.is_public_location !== undefined && (
-                <div style={{ display: "flex", alignItems: "center", gap: 8, gridColumn: "span 2" }}>
-                  <input
-                    type="checkbox"
-                    id="chk_pub"
-                    checked={params.is_public_location}
-                    onChange={(e) => setParams({ ...params, is_public_location: e.target.checked })}
-                  />
-                  <label htmlFor="chk_pub" style={{ fontSize: 12, cursor: "pointer", color: "var(--text-secondary)" }}>
-                    Recovery Made from Public / Open Area (Breaks Exclusive Knowledge Presumption)
-                  </label>
-                </div>
-              )}
-            </div>
-
-            {whatIfResult && (
-              <div
-                style={{
-                  marginTop: 10,
-                  padding: "8px 10px",
-                  borderRadius: 4,
-                  background: "rgba(56, 189, 248, 0.1)",
-                  border: "1px solid rgba(56, 189, 248, 0.3)",
-                  fontSize: 11.5,
-                  color: "var(--text-secondary)",
-                }}
-              >
-                <div style={{ fontWeight: 700, color: "var(--blue)", marginBottom: 2 }}>
-                  💡 Z3 Optimization Result ({whatIfResult.condition})
-                </div>
-                {whatIfResult.explanation}
-              </div>
-            )}
           </div>
         </div>
       </div>

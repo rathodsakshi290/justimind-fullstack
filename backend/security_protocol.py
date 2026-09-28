@@ -44,10 +44,11 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
         
         # Content Security Policy (allows local Vite development and secure CDN assets)
         response.headers["Content-Security-Policy"] = (
-            "default-src 'self' 'unsafe-inline' 'unsafe-eval' http://localhost:5173 http://localhost:3000 http://127.0.0.1:8000; "
+            "default-src 'self' 'unsafe-inline' 'unsafe-eval' http://localhost:5173 http://127.0.0.1:5173 http://localhost:3000 http://127.0.0.1:3000 http://127.0.0.1:8000 http://localhost:8000; "
             "img-src 'self' data: https:; "
             "font-src 'self' https://fonts.gstatic.com data:; "
-            "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;"
+            "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
+            "connect-src 'self' http://localhost:8000 http://127.0.0.1:8000 http://localhost:5173 http://127.0.0.1:5173 https:;"
         )
         return response
 

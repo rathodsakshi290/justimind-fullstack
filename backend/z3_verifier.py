@@ -21,21 +21,6 @@ class Z3LegalVerifier:
         """Pre-configured realistic benchmark models for immediate formal verification."""
         return [
             {
-                "id": "contract_liability_contradiction",
-                "title": "TechVanguard MSA — Indemnity vs. Liability Cap Contradiction",
-                "domain": "contract_consistency",
-                "description": "Clause 8.1 grants unconditional indemnity for damages without cap, while Clause 8.2 establishes a strict hard cap of $1,000. Z3 formally proves UNSAT (direct contradiction).",
-                "sample_text": """SECTION 8: INDEMNIFICATION & LIABILITY
-8.1 Vendor shall unconditionally defend, indemnify, and hold harmless Client from any and all third-party claims, damages, liabilities, and expenses arising out of any breach of warranty, negligence, or willful misconduct.
-8.2 IN NO EVENT SHALL VENDOR'S OR CLIENT'S TOTAL LIABILITY EXCEED $1,000, REGARDLESS OF THE CAUSE OF ACTION.""",
-                "default_params": {
-                    "has_unconditional_indemnity": True,
-                    "has_strict_cap": True,
-                    "cap_amount": 1000,
-                    "indemnity_unlimited": True
-                }
-            },
-            {
                 "id": "termination_vs_cure_period",
                 "title": "SaaS Agreement — Notice vs. Cure Period Deadlock",
                 "domain": "contract_consistency",
@@ -297,7 +282,7 @@ In the event of alleged default or non-performance, the non-breaching party must
             
             remedies = []
             if rule_id_3 in unsat_core or rule_id_1 in unsat_core:
-                remedies.append("Carve out indemnification obligations from Section 8.2 limitation of liability: 'Except for indemnification obligations under Section 8.1, total liability shall not exceed...'")
+                remedies.append("Carve out indemnification obligations from the limitation of liability clause: 'Except for indemnification obligations, total liability shall not exceed...'")
             if "RULE_PROCEDURAL_COMPATIBILITY" in unsat_core:
                 remedies.append(f"Harmonize Section 7 and Section 12: Increase termination notice to at least {mandatory_cure_days} days or shorten cure period to <= {termination_notice_days} days.")
             if "RULE_STATUTORY_REASONABLENESS" in unsat_core:

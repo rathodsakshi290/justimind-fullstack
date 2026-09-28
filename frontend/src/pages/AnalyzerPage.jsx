@@ -20,10 +20,6 @@ const SAMPLE_CONTRACTS = [
     text: `MASTER SERVICES AGREEMENT
 Between TechVanguard Corp ("Client") and Apex Global Solutions ("Vendor")
 
-SECTION 8: INDEMNIFICATION & LIABILITY
-8.1 Vendor shall unconditionally defend, indemnify, and hold harmless Client from any and all third-party claims, damages, liabilities, and expenses arising out of any breach of warranty, negligence, or willful misconduct.
-8.2 IN NO EVENT SHALL CLIENT BE LIABLE FOR ANY INDIRECT, CONSEQUENTIAL, OR PUNITIVE DAMAGES. CLIENT'S TOTAL LIABILITY SHALL NOT EXCEED $1,000, REGARDLESS OF THE CAUSE OF ACTION.
-
 SECTION 11: DATA PRIVACY & SECURITY
 11.1 Vendor processes user personal data on behalf of Client. Vendor may transfer user data to third-party sub-processors without prior written notice to Client.
 11.2 Vendor shall retain all archived log data indefinitely for operational telemetry analysis.`
@@ -33,7 +29,7 @@ SECTION 11: DATA PRIVACY & SECURITY
     text: `MUTUAL NON-DISCLOSURE & PROPRIETARY RIGHTS AGREEMENT
 
 1. DEFINITIONS: "Confidential Information" includes all business, technical, or financial data disclosed orally or in writing.
-2. NON-SOLICITATION: For a period of five (5) years following the termination of this Agreement, neither party shall solicit, hire, or engage any employee or contractor of the other party worldwide without liquidated damages of $500,000.
+2. NON-SOLICITATION: For a period of two (2) years following the termination of this Agreement, neither party shall solicit, hire, or engage any employee or contractor of the other party without prior written consent.
 3. GOVERNING LAW: This Agreement shall be governed exclusively by the laws of the State of Delaware without regard to conflict of law principles.`
   },
 ];
